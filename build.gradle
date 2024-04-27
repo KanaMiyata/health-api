@@ -1,51 +1,45 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id "org.openapi.generator" version "5.3.0"
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "org.openapi.generator" version "5.3.0"
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	testImplementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	compileOnly 'io.swagger:swagger-annotations:3.0.0'
-
-
-
-
+    testImplementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 task buildApiDoc(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
-	generatorName.set("html2")
-	inputSpec.set(file("$rootDir/src/main/resources/api-schema.yaml").toString())
-	outputDir.set("$buildDir\\apidoc")
+    generatorName.set("html2")
+    inputSpec.set(file("$rootDir/src/main/resources/api-schema.yaml").toString())
+    outputDir.set("$buildDir\\apidoc")
 }
 
 task buildSpringServer(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
-	generatorName.set("spring")
-	inputSpec.set(file("$rootDir/src/main/resources/api-schema.yaml").toString())
-	outputDir.set("$buildDir/spring")
-	apiPackage.set("com.example.todoapi.controller")
-	modelPackage.set("com.example.todoapi.model")
-	configOptions.set([
-			interfaceOnly: "true"
-	])
+    generatorName.set("spring")
+    inputSpec.set(file("$rootDir/src/main/resources/api-schema.yaml").toString())
+    outputDir.set("$buildDir/spring")
+    apiPackage.set("com.example.todoapi.controller")
+    modelPackage.set("com.example.todoapi.model")
+    configOptions.set([
+            interfaceOnly: "true"
+    ])
 }
 
 compileJava.dependsOn tasks.buildSpringServer
@@ -53,10 +47,5 @@ compileJava.dependsOn tasks.buildSpringServer
 sourceSets.main.java.srcDirs("$buildDir/spring/src/main/java")
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
-
-
-
-
-
