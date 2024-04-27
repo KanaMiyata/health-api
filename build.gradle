@@ -21,10 +21,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'io.swagger:swagger-annotations:3.0.0'
-
-
-
-
 }
 
 tasks.named('test') {
@@ -55,8 +51,3 @@ sourceSets.main.java.srcDirs("$buildDir/spring/src/main/java")
 repositories {
 	mavenCentral()
 }
-
-
-
-
-
